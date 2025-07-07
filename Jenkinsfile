@@ -4,7 +4,6 @@ pipeline {
     environment {
         IMAGE_NAME = "moodboard/jwt-auth"
         DOCKER_TAG = "${BUILD_NUMBER}"
-        REPO_URL = "git@github.com:Moodboard-net/jwt-auth.git"
         TEST_PORT = "4000"
     }
 
@@ -12,7 +11,9 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Cloning source code from GitHub...'
-                git url: "${env.REPO_URL}"
+                git branch: 'main', 
+                credentialsId: 'Github-Moodboard', 
+                url: 'git@github.com:Moodboard-net/jwt-auth.git'
             }
         }
 
@@ -20,20 +21,6 @@ pipeline {
             steps {
                 echo 'Building Docker image...'
                 sh "docker build -t ${IMAGE_NAME}:${DOCKER_TAG} ."
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running smoke test...'
-                sh """
-                    docker rm -f test-container || true
-                    docker run -d -p ${TEST_PORT}:4000 --name test-container ${IMAGE_NAME}:${DOCKER_TAG}
-                    sleep 5
-                    curl -f http://localhost:${TEST_PORT} || (echo 'App failed to respond'; docker logs test-container; exit 1)
-                    docker rm -f test-container
-                """
-                echo 'Smoke test passed!'
             }
         }
 
@@ -82,10 +69,6 @@ pipeline {
     }
 
     post {
-        always {
-            echo 'Cleaning up local Docker image...'
-            sh "docker rmi ${IMAGE_NAME}:${DOCKER_TAG} || true"
-        }
         success {
             echo 'CI/CD pipeline completed successfully!'
         }

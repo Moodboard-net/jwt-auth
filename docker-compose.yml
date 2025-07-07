@@ -9,8 +9,6 @@ services:
     container_name: jwt-auth
     ports:
       - 4000:4000
-    env_file:
-      - .env
     environment:
       DB_HOST: mysql
       DB_USER: root
