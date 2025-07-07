@@ -3,7 +3,8 @@ pipeline {
 
     environment {
         IMAGE_NAME = "moodboard/jwt-auth"
-        DOCKER_TAG = "${BUILD_NUMBER}"
+        // Menetapkan nilai default untuk DOCKER_TAG jika BUILD_NUMBER kosong
+        DOCKER_TAG = "${BUILD_NUMBER ?: 'latest'}"  
         TEST_PORT = "4000"
     }
 
@@ -11,15 +12,23 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 echo 'Cloning source code from GitHub...'
-                git branch: 'main', 
-                credentialsId: 'Github-Moodboard', 
-                url: 'git@github.com:Moodboard-net/jwt-auth.git'
+                git branch: 'main',
+                    credentialsId: 'Github-Moodboard', 
+                    url: 'git@github.com:Moodboard-net/jwt-auth.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker image...'
+                script {
+                    // Pastikan DOCKER_TAG memiliki nilai yang valid
+                    if (!env.DOCKER_TAG) {
+                        error "DOCKER_TAG is not set!"
+                    }
+                    echo "DOCKER_TAG: ${DOCKER_TAG}"
+                }
+                // Menjalankan docker build dengan tag yang valid
                 sh "docker build -t ${IMAGE_NAME}:${DOCKER_TAG} ."
             }
         }
