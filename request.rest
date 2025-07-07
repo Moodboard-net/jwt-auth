@@ -1,11 +1,11 @@
 GET http://192.168.100.7:8000/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InRva2VuIn0.eyJ1c2VySWQiOjIsIm5hbWUiOiJKYW1hbCIsImVtYWlsIjoiZXhhbXBsZUBnbWFpbC5jb20iLCJpYXQiOjE3NTE2MjMwNjIsImV4cCI6MTc1MTYyMzEyMiwiaXNzIjoidG9rZW4ifQ.Palpw__72gliCyxCAf6I4HVvptRgM9t6NO3xEfu0QT4
 ###
-POST http://192.168.100.7:8000/users
+POST http://192.168.100.14:4000/users
 Content-Type: application/json
 
 {
-    "name": "Jamal",
+    "name": "Wahyu",
     "email" : "example@gmail.com",
     "password": "123456",
     "confPassword": "123456"
