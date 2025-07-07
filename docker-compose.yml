@@ -16,14 +16,14 @@ services:
       - auth-network
     depends_on:
       - mysql
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       cpus: '0.25'
-    #       memory: 30M
-    #     limits:
-    #       cpus: '0.5'
-    #       memory: 50M
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.25'
+          memory: 30M
+        limits:
+          cpus: '0.5'
+          memory: 50M
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin-auth
@@ -37,6 +37,14 @@ services:
       - '8080:80'
     networks:
       - auth-network
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.25'
+          memory: 30M
+        limits:
+          cpus: '0.5'
+          memory: 50M
 
   mysql:
     image: mysql:latest
@@ -51,7 +59,14 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/data_dump.sql
     networks:
       - auth-network
-    mem_limit: 200m
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.25'
+          memory: 300M
+        limits:
+          cpus: '0.5'
+          memory: 350M
 
 volumes:
   auth: {}
