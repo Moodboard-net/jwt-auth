@@ -51,6 +51,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/data_dump.sql
     networks:
       - auth-network
+    mem_limit: 200m
 
 volumes:
   auth: {}
