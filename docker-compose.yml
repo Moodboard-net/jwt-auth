@@ -56,7 +56,7 @@ services:
       MYSQL_DATABASE: auth_db
     volumes:
       - auth:/var/lib/mysql
-      - init.sql:/docker-entrypoint-initdb.d/data_dump.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/data_dump.sql
     networks:
       - auth-network
     deploy:
