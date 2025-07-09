@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: moodboard/jwt-auth:__BUILD_NUMBER__
+    image: moodboard/jwt-auth:latest
     container_name: jwt-auth
     ports:
       - 4000:4000
