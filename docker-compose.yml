@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: moodboard/jwt-auth:__BUILD_NUMBER__
+    image: moodboard/jwt-auth:latest
     container_name: jwt-auth
     ports:
       - 4000:4000
@@ -13,9 +13,7 @@ services:
       DB_PASSWORD: root
       DB_NAME: auth_db
     networks:
-      - auth-network
-    depends_on:
-      - mysql
+      - mysql_default
     deploy:
       resources:
         reservations:
@@ -24,53 +22,7 @@ services:
         limits:
           cpus: '0.5'
           memory: 50M
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin-auth
-    restart: always
-    depends_on:
-      - mysql
-    environment:
-      PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - '8080:80'
-    networks:
-      - auth-network
-    deploy:
-      resources:
-        reservations:
-          cpus: '0.25'
-          memory: 30M
-        limits:
-          cpus: '0.5'
-          memory: 50M
-
-  mysql:
-    image: mysql:latest
-    container_name: mysql-auth
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: auth_db
-    volumes:
-      - auth:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/data_dump.sql
-    networks:
-      - auth-network
-    deploy:
-      resources:
-        reservations:
-          cpus: '0.25'
-          memory: 300M
-        limits:
-          cpus: '0.5'
-          memory: 350M
-
-volumes:
-  auth: {}
 
 networks:
-  auth-network:
+  mysql_default:
     driver: bridge

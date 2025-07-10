@@ -1,12 +1,12 @@
 GET http://192.168.100.14:4000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InRva2VuIn0.eyJ1c2VySWQiOjIsIm5hbWUiOiJKYW1hbCIsImVtYWlsIjoiZXhhbXBsZUBnbWFpbC5jb20iLCJpYXQiOjE3NTE2MjMwNjIsImV4cCI6MTc1MTYyMzEyMiwiaXNzIjoidG9rZW4ifQ.Palpw__72gliCyxCAf6I4HVvptRgM9t6NO3xEfu0QT4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InRva2VuIn0.eyJ1c2VySWQiOjEsIm5hbWUiOiJXYWh5dSIsImVtYWlsIjoiZXhhbXBsZUBnbWFpbC5jb20iLCJpYXQiOjE3NTE5NDU0MTQsImV4cCI6MTc1MTk0NTQ3NCwiaXNzIjoidG9rZW4ifQ.L4hWBjcJV1UHafz3CnUIP8Ldp7Pi8mWtpuGj9DtYLU4
 ###
 POST http://192.168.100.14:4000/users
 Content-Type: application/json
 
 {
-    "name": "Wahyu",
-    "email" : "example@gmail.com",
+    "name": "Jamal",
+    "email" : "example1@gmail.com",
     "password": "123456",
     "confPassword": "123456"
 }
@@ -16,7 +16,7 @@ POST http://192.168.100.14:4000/login
 Content-Type: application/json
 
 {
-    "email" : "example@gmail.com",
+    "email" : "example1@gmail.com",
     "password": "123456"
 }
 
